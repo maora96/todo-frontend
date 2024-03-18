@@ -5,7 +5,6 @@ export const getToken = () => {
 
   if (storageToken) {
     const token = JSON.parse(storageToken);
-
     return token;
   }
 };

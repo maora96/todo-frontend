@@ -18,6 +18,7 @@ export interface SignUpRequest {
 export interface getManyTasks {
   title?: string;
   period?: Period;
+  tags?: string[];
 }
 
 export interface createTask {
@@ -53,3 +54,42 @@ export interface createTag {
 export interface editTag {
   name: string;
 }
+
+export type Day = {
+  date: string;
+  tasks: Task[];
+  holidays: Holiday[];
+};
+
+export type Task = {
+  id: string;
+  title: string;
+  description: string;
+  date: Date;
+  duration: number;
+  tags: Tags[];
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+};
+
+export type Holiday = {
+  date: Date;
+  localName: string;
+  name: string;
+  countryCode: string;
+};
+
+export type Tags = {
+  id: string;
+  name: string;
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+};
+
+export type FormValues = {
+  title: string;
+};

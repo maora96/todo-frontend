@@ -12,7 +12,7 @@ type FormValues = {
 };
 
 export function SignUp() {
-  const [signUpError, setSignUpError] = useState<string>();
+  const [, setSignUpError] = useState<string>();
 
   const navigate = useNavigate();
   const { Header, Content } = Layout;

@@ -11,7 +11,7 @@ type FormValues = {
 };
 
 export function Login() {
-  const [loginError, setLoginError] = useState<string>();
+  const [, setLoginError] = useState<string>();
 
   const navigate = useNavigate();
   const { Header, Content } = Layout;

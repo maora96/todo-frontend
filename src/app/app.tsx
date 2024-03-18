@@ -9,7 +9,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <MainRoutes />
-        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+        <ReactQueryDevtools initialIsOpen={true} position="bottom-right" />
       </BrowserRouter>
     </QueryClientProvider>
   );
