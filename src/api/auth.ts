@@ -1,5 +1,5 @@
 import { api } from ".";
-import { SignIn, SignUp } from "../types";
+import { SignIn, SignUpRequest } from "../types";
 
 export const signIn = async (request: SignIn) => {
   return api.post("/v1/auth/signin", {
@@ -7,7 +7,7 @@ export const signIn = async (request: SignIn) => {
   });
 };
 
-export const signUp = async (request: SignUp) => {
+export const signUp = async (request: SignUpRequest) => {
   return api.post("/v1/auth/signup", {
     ...request,
   });

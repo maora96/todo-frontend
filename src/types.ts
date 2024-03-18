@@ -9,7 +9,7 @@ export interface SignIn {
   password: string;
 }
 
-export interface SignUp {
+export interface SignUpRequest {
   email: string;
   name: string;
   password: string;
