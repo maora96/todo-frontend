@@ -8,9 +8,9 @@ import { AddTag } from "../forms/addTag";
 import { useNavigate } from "react-router-dom";
 
 interface IHeaderComponent {
-  tags: Tags[];
-  refetchTasks: () => void;
-  refetchTags: () => void;
+  tags?: Tags[];
+  refetchTasks?: () => void;
+  refetchTags?: () => void;
 }
 
 export function HeaderComponent({
@@ -98,24 +98,28 @@ export function HeaderComponent({
         </div>
       )}
 
-      <BaseDrawer
-        onClose={onCloseAddTaskDrawer}
-        open={isAddTaskDrawerOpen}
-        title={"Criar nova tarefa"}
-      >
-        <AddTask
-          tags={tags}
+      {tags && refetchTasks && (
+        <BaseDrawer
           onClose={onCloseAddTaskDrawer}
-          refetchTasks={refetchTasks}
-        />
-      </BaseDrawer>
-      <BaseDrawer
-        onClose={onCloseAddTagDrawer}
-        open={isAddTagDrawerOpen}
-        title={"Criar nova tag"}
-      >
-        <AddTag onClose={onCloseAddTagDrawer} refetchTags={refetchTags} />
-      </BaseDrawer>
+          open={isAddTaskDrawerOpen}
+          title={"Criar nova tarefa"}
+        >
+          <AddTask
+            tags={tags}
+            onClose={onCloseAddTaskDrawer}
+            refetchTasks={refetchTasks}
+          />
+        </BaseDrawer>
+      )}
+      {refetchTags && (
+        <BaseDrawer
+          onClose={onCloseAddTagDrawer}
+          open={isAddTagDrawerOpen}
+          title={"Criar nova tag"}
+        >
+          <AddTag onClose={onCloseAddTagDrawer} refetchTags={refetchTags} />
+        </BaseDrawer>
+      )}
     </Header>
   );
 }

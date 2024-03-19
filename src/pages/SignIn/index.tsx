@@ -2,8 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { signIn } from "../../api/auth";
 import { SignIn } from "../../types";
-import { Layout, Menu, Button, Typography, Form, Input } from "antd";
+import { Layout, Button, Typography, Form, Input } from "antd";
 import toast from "react-hot-toast";
+import { HeaderComponent } from "../../components/header";
 
 type FormValues = {
   email: string;
@@ -12,7 +13,7 @@ type FormValues = {
 
 export function Login() {
   const navigate = useNavigate();
-  const { Header, Content } = Layout;
+  const { Content } = Layout;
   const { Title } = Typography;
 
   const notifyError = () => toast.error("Erro no login.");
@@ -38,11 +39,6 @@ export function Login() {
     }
   );
 
-  const items = [
-    { key: 0, label: "Criar tarefa" },
-    { key: 1, label: "Criar tag" },
-  ];
-
   const onFinish = (values: FormValues) => {
     loginMutation.mutate(values);
   };
@@ -53,24 +49,7 @@ export function Login() {
         height: "100vh",
       }}
     >
-      <Header
-        style={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <div className="demo-logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["2"]}
-          items={items}
-          style={{
-            flex: 1,
-            minWidth: 0,
-          }}
-        />
-      </Header>
+      <HeaderComponent />
       <Content
         style={{
           padding: "0 48px",
