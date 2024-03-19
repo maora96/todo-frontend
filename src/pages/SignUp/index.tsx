@@ -45,9 +45,6 @@ export function SignUp() {
   const onFinish = (values: FormValues) => {
     signUpMutation.mutate(values);
   };
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
 
   return (
     <Layout
@@ -97,7 +94,6 @@ export function SignUp() {
               remember: true,
             }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
             <Title

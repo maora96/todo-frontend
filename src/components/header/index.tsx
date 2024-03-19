@@ -1,10 +1,11 @@
-import { Layout, Menu, Typography } from "antd";
+import { Button, Layout, Menu, Typography } from "antd";
 import { getToken } from "../../api";
 import { useState } from "react";
 import { BaseDrawer } from "../drawer";
 import { Tags } from "../../types";
 import { AddTask } from "../forms/addTask";
 import { AddTag } from "../forms/addTag";
+import { useNavigate } from "react-router-dom";
 
 interface IHeaderComponent {
   tags: Tags[];
@@ -20,6 +21,7 @@ export function HeaderComponent({
   const [isAddTaskDrawerOpen, setIsAddTaskDrawerOpen] = useState(false);
   const [isAddTagDrawerOpen, setIsAddTagDrawerOpen] = useState(false);
 
+  const navigate = useNavigate();
   const { Header } = Layout;
   const { Title } = Typography;
 
@@ -64,17 +66,36 @@ export function HeaderComponent({
         Tarefas
       </Title>
       {getToken() && (
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["0"]}
-          items={items}
+        <div
           style={{
-            minWidth: "50%",
-            justifyContent: "flex-end",
+            minWidth: "25%",
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
           }}
-          onClick={onMenuClick}
-        />
+        >
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={["0"]}
+            items={items}
+            style={{
+              minWidth: "50%",
+              justifyContent: "flex-end",
+            }}
+            onClick={onMenuClick}
+          />
+          <Button
+            type="primary"
+            htmlType="button"
+            onClick={() => {
+              localStorage.removeItem("token");
+              navigate("/");
+            }}
+          >
+            Logout
+          </Button>
+        </div>
       )}
 
       <BaseDrawer

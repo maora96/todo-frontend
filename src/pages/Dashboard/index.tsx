@@ -44,7 +44,7 @@ export function Dashboard() {
       <Content
         style={{
           padding: "0 48px",
-          height: "100%",
+          minHeight: "100vh",
         }}
       >
         <div

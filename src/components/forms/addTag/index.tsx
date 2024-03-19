@@ -20,11 +20,9 @@ export function AddTag({ onClose, refetchTags }: IAddTag) {
         notifySuccess();
         refetchTags();
         onClose(false);
-        form.resetFields();
       },
       onError: () => {
         notifyError();
-        form.resetFields();
       },
     }
   );
@@ -38,9 +36,12 @@ export function AddTag({ onClose, refetchTags }: IAddTag) {
       <Form.Item
         name="name"
         label="Nome"
-        rules={[{ required: true, message: "Please enter name" }]}
+        rules={[{ required: true, message: "Por favor, escolha um nome" }]}
       >
-        <Input style={{ width: "100%" }} placeholder="Please enter name" />
+        <Input
+          style={{ width: "100%" }}
+          placeholder="Por favor, escolha um nome"
+        />
       </Form.Item>
 
       <Button type="primary" onClick={onSubmit} htmlType="submit">

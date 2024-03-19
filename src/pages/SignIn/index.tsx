@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { signIn } from "../../api/auth";
-import { useState } from "react";
 import { SignIn } from "../../types";
 import { Layout, Menu, Button, Typography, Form, Input } from "antd";
 import toast from "react-hot-toast";
@@ -46,9 +45,6 @@ export function Login() {
 
   const onFinish = (values: FormValues) => {
     loginMutation.mutate(values);
-  };
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
   };
 
   return (
@@ -100,7 +96,6 @@ export function Login() {
               remember: true,
             }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
             <Title
