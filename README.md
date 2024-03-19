@@ -12,7 +12,7 @@ $ npm install
 
 ## Running the app
 
-First you need to create a local postgres database. An .env-example file is provided with all variables needed.
+First you need to run the backend api (link below).
 
 ```bash
 # development
