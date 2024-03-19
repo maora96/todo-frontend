@@ -1,12 +1,15 @@
 import { Day, Holiday, Tags, Task } from "../../types";
 import { Card, Tag } from "antd";
 import { format } from "date-fns";
+import { InnerCardComponent } from "../innerCard";
 
 interface ICardComponent {
   day: Day;
+  refetchTasks: () => void;
+  tags: Tags[];
 }
 
-export function CardComponent({ day }: ICardComponent) {
+export function CardComponent({ day, refetchTasks, tags }: ICardComponent) {
   return (
     <Card
       title={format(new Date(day.date), "dd/MM/yyyy")}
@@ -34,38 +37,11 @@ export function CardComponent({ day }: ICardComponent) {
         <>
           {day.tasks.map((task: Task) => {
             return (
-              <Card
-                type="inner"
-                size="small"
-                title={task?.title}
-                extra={<a href="#">More</a>}
-                style={{
-                  width: 300,
-                  marginBottom: 20,
-                }}
-              >
-                <p>{task?.description}</p>
-                <Tag
-                  color="#108ee9"
-                  style={{
-                    marginTop: 10,
-                  }}
-                >
-                  {(task?.duration / 60).toFixed(0)}min
-                </Tag>
-                <div>
-                  {task.tags?.map((tag: Tags) => (
-                    <Tag
-                      color="#2db7f5"
-                      style={{
-                        marginTop: 10,
-                      }}
-                    >
-                      {tag.name}
-                    </Tag>
-                  ))}
-                </div>
-              </Card>
+              <InnerCardComponent
+                refetchTasks={refetchTasks}
+                task={task}
+                tags={tags}
+              />
             );
           })}
         </>

@@ -4,6 +4,7 @@ import { signUp } from "../../api/auth";
 import { useState } from "react";
 import { SignUpRequest } from "../../types";
 import { Layout, Menu, Button, Typography, Form, Input } from "antd";
+import toast from "react-hot-toast";
 
 type FormValues = {
   email: string;
@@ -12,11 +13,11 @@ type FormValues = {
 };
 
 export function SignUp() {
-  const [, setSignUpError] = useState<string>();
-
   const navigate = useNavigate();
   const { Header, Content } = Layout;
   const { Title } = Typography;
+
+  const notifyError = () => toast.error("Erro no signup.");
 
   const signUpMutation = useMutation(
     async (request: SignUpRequest) => signUp(request),
@@ -30,8 +31,8 @@ export function SignUp() {
 
         navigate("/");
       },
-      onError: (data: any) => {
-        setSignUpError(data.response.data.message);
+      onError: () => {
+        notifyError();
       },
     }
   );

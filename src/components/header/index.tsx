@@ -1,13 +1,25 @@
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { getManyTasks } from "../../types";
 import { Layout, Menu, Typography } from "antd";
 import { getToken } from "../../api";
-export function HeaderComponent() {
-  const [request, setRequest] = useState<getManyTasks>({});
-  const [tasks, setTasks] = useState<any[]>([]);
+import { useState } from "react";
+import { BaseDrawer } from "../drawer";
+import { Tags } from "../../types";
+import { AddTask } from "../forms/addTask";
+import { AddTag } from "../forms/addTag";
 
-  const navigate = useNavigate();
+interface IHeaderComponent {
+  tags: Tags[];
+  refetchTasks: () => void;
+  refetchTags: () => void;
+}
+
+export function HeaderComponent({
+  tags,
+  refetchTasks,
+  refetchTags,
+}: IHeaderComponent) {
+  const [isAddTaskDrawerOpen, setIsAddTaskDrawerOpen] = useState(false);
+  const [isAddTagDrawerOpen, setIsAddTagDrawerOpen] = useState(false);
+
   const { Header } = Layout;
   const { Title } = Typography;
 
@@ -15,6 +27,24 @@ export function HeaderComponent() {
     { key: 0, label: "Criar tarefa" },
     { key: 1, label: "Criar tag" },
   ];
+
+  const onCloseAddTaskDrawer = () => {
+    setIsAddTaskDrawerOpen(false);
+  };
+
+  const onCloseAddTagDrawer = () => {
+    setIsAddTagDrawerOpen(false);
+  };
+
+  const onMenuClick = (e: any) => {
+    if (e.key === "0") {
+      setIsAddTaskDrawerOpen(true);
+    }
+
+    if (e.key === "1") {
+      setIsAddTagDrawerOpen(true);
+    }
+  };
 
   return (
     <Header
@@ -43,8 +73,28 @@ export function HeaderComponent() {
             minWidth: "50%",
             justifyContent: "flex-end",
           }}
+          onClick={onMenuClick}
         />
       )}
+
+      <BaseDrawer
+        onClose={onCloseAddTaskDrawer}
+        open={isAddTaskDrawerOpen}
+        title={"Criar nova tarefa"}
+      >
+        <AddTask
+          tags={tags}
+          onClose={onCloseAddTaskDrawer}
+          refetchTasks={refetchTasks}
+        />
+      </BaseDrawer>
+      <BaseDrawer
+        onClose={onCloseAddTagDrawer}
+        open={isAddTagDrawerOpen}
+        title={"Criar nova tag"}
+      >
+        <AddTag onClose={onCloseAddTagDrawer} refetchTags={refetchTags} />
+      </BaseDrawer>
     </Header>
   );
 }

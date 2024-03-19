@@ -19,7 +19,7 @@ export const getOne = async (id: string) => {
 
 export const getMany = async (request: getManyTasks) => {
   const { data } = await api.post(
-    `/v1/task?${request.title ? `title=${request.title}&` : ""}${
+    `/v1/task/list?${request.title ? `title=${request.title}&` : ""}${
       request.period ? `period=${request.period}&` : ""
     }`,
     {
@@ -66,9 +66,9 @@ export const getByTags = async (request: getManyTasksByTags) => {
   );
 };
 
-export const edit = async (request: editTask) => {
+export const edit = async (request: editTask, id: string) => {
   return api.patch(
-    "/v1/task",
+    `/v1/task/${id}`,
     {
       ...request,
     },
@@ -82,7 +82,7 @@ export const edit = async (request: editTask) => {
 };
 
 export const deleteOne = async (id: string) => {
-  const { data } = await api.delete(`/tasks/${id}`, {
+  const { data } = await api.delete(`/v1/task/${id}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${getToken()}`,

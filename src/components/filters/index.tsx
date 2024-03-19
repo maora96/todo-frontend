@@ -38,12 +38,6 @@ export function Filters({
       >
         <Item
           name="title"
-          rules={[
-            {
-              required: true,
-              message: "Please input your email!",
-            },
-          ]}
           style={{
             minWidth: "90%",
           }}

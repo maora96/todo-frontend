@@ -21,8 +21,8 @@ export function Dashboard() {
     }
   }, []);
 
-  const { data } = useGetTasks(request);
-  const { data: allTags } = useGetTags();
+  const { data, refetch } = useGetTasks(request);
+  const { data: allTags, refetch: refetchTags } = useGetTags();
 
   const onFinish = (values: FormValues) => {
     setRequest({
@@ -36,7 +36,11 @@ export function Dashboard() {
 
   return (
     <Layout>
-      <HeaderComponent />
+      <HeaderComponent
+        tags={allTags}
+        refetchTasks={refetch}
+        refetchTags={refetchTags}
+      />
       <Content
         style={{
           padding: "0 48px",
@@ -65,7 +69,13 @@ export function Dashboard() {
           />
           <Space direction="horizontal" size={16} wrap align="baseline">
             {data?.map((day: Day) => {
-              return <CardComponent day={day} />;
+              return (
+                <CardComponent
+                  day={day}
+                  refetchTasks={refetch}
+                  tags={allTags}
+                />
+              );
             })}
           </Space>
         </div>

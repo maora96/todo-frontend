@@ -4,6 +4,7 @@ import { signIn } from "../../api/auth";
 import { useState } from "react";
 import { SignIn } from "../../types";
 import { Layout, Menu, Button, Typography, Form, Input } from "antd";
+import toast from "react-hot-toast";
 
 type FormValues = {
   email: string;
@@ -11,11 +12,11 @@ type FormValues = {
 };
 
 export function Login() {
-  const [, setLoginError] = useState<string>();
-
   const navigate = useNavigate();
   const { Header, Content } = Layout;
   const { Title } = Typography;
+
+  const notifyError = () => toast.error("Erro no login.");
 
   const loginMutation = useMutation(
     async (request: SignIn) => signIn(request),
@@ -32,8 +33,8 @@ export function Login() {
 
         navigate("/dashboard");
       },
-      onError: (data: any) => {
-        setLoginError(data.response.data.message);
+      onError: () => {
+        notifyError();
       },
     }
   );
